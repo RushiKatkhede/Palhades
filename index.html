@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palhade's</title>
+<link rel="icon" href="images/Palhade's Logo_Admin_A.png" type="image/x-icon">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="container1" class="login-background">
+      <div id="container">
+        
+        <div id="containerCompany">
+          <div id="rightContainer">
+            <h1>PALHADE'<span>S</span></h1>
+            <h3><span>Multi</span> Services</h3>
+            <h5>Vehicle Collector</h5>
+          </div>
+        </div>
+        <div>
+          <form id="loginForm">
+            <h2>Hello Admin!</h2>
+            <h3>Wellcome back you’ve been missed!</h3>
+            
+            <input type="text" id="username" name="username" placeholder="Username"><br><br>
+            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+        
+            <button type="submit">Login</button>
+            <button type="button" id="forgotPassword">Forgot Password</button>
+        </form>
+        <div id="forgotPasswordModal" style="display: none;">
+            <input type="text" id="code" placeholder="Enter code"><br><br>
+            <input type="password" id="newPassword" placeholder="Enter new password"><br><br>
+            <button type="button" id="changePassword">Change Password</button>
+            <button type="button" id="cancel">Cancel</button>
+        </div>        
+      </div>
+      </div>
+</div>
+
+<div id="surveyForm" style="display: none;">
+   <div id="container" class="survey-background">
+    <div class="Sf_Continer">
+        <h1 class="SF">SURVEY FORM</h1>
+        <form name="submit-to-google-sheet" class="surveyDetailsForm" onsubmit="capitalizeFirstLetter()">
+          <h3 class="AN">Admin Name</h3>
+          <input type="text" id="adminName" name="AdminName" placeholder="Admin Name*" required><br><br>
+          <h3 class="UD">User Details</h3>
+          <input type="text" id="number" name="Number" placeholder="Number*" required><br><br>
+          <input type="text" id="vehicleNo" name="VehicleNo" placeholder="AA-00-AA-0000*" required><br><br>
+          <input type="text" id="name" name="Name" placeholder="Name"><br><br>
+          <input type="text" id="area" name="Area" placeholder="Area*" required><br><br>
+          <input type="hidden" id="currentDateTime" name="Time" placeholder="Current Date and Time" readonly>
+          <textarea id="message" name="Message" rows="5" placeholder="Message"></textarea><br><br>
+          <button type="submit">Submit</button>
+          <button type="button" id="signout">Sign Out</button>
+      </form>
+        <h6 id="msg"></h6>
+        
+      </div>
+  </div>
+</div>
+
+<script>
+  function capitalizeFirstLetter() {
+      var inputs = document.querySelectorAll('.surveyDetailsForm input[type="text"], .surveyDetailsForm textarea');
+      inputs.forEach(function(input) {
+          if (input.id !== 'vehicleNo') {
+              input.value = input.value.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+          } else {
+              input.value = input.value.toUpperCase();
+          }
+      });
+  }
+</script>
+
+<script>
+  // Function to get current date and time
+  function getCurrentDateTime() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+}
+
+  // Set current date and time to the respective input field
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("currentDateTime").value = getCurrentDateTime();
+  });
+</script>
+
+
+
+  <script>
+    // Array of username-password pairs
+    var credentials = [
+      {username: 'Sandeep', password: 'Sandeep@123'},
+      {username: 'Ravi', password: 'Ravi@1234'},
+      {username: 'user3', password: 'pass3'}
+    ];
+
+    // Code required to change password
+    var changePasswordCode = 'afo490u20*&((';
+
+    // Function to clear form fields
+    function clearForm() {
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+
+    // Event listener for form submission
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get entered username and password
+      var enteredUsername = document.getElementById('username').value;
+      var enteredPassword = document.getElementById('password').value;
+
+      // Check if entered credentials match any stored credentials
+      var isValid = credentials.some(function(credential) {
+        return credential.username === enteredUsername && credential.password === enteredPassword;
+      });
+
+      // Show message based on validation
+      if (isValid) {
+        document.getElementById('container1').style.display = 'none';
+        document.getElementById('surveyForm').style.display = 'block';
+        clearForm();
+      } else {
+        alert('Invalid username or password. Please try again.');
+        clearForm();
+      }
+    });
+
+    // Event listener for "Forgot Password" button
+    document.getElementById('forgotPassword').addEventListener('click', function() {
+      // Show the modal
+      document.getElementById('forgotPasswordModal').style.display = 'block';
+    });
+
+    // Event listener for "Change Password" button in modal
+    document.getElementById('changePassword').addEventListener('click', function() {
+      var code = document.getElementById('code').value;
+      var newPassword = document.getElementById('newPassword').value;
+
+      if (code === changePasswordCode) {
+        // Update password in credentials array
+        var username = document.getElementById('username').value;
+        var user = credentials.find(function(credential) {
+          return credential.username === username;
+        });
+
+        if (user) {
+          user.password = newPassword;
+          alert('Password changed successfully!');
+          document.getElementById('forgotPasswordModal').style.display = 'none';
+          document.getElementById('forgotPasswordForm').reset(); // Reset the form
+        } else {
+          alert('Username not found!');
+        }
+      } else {
+        alert('Invalid code. Please try again.');
+      }
+    });
+
+    // Event listener for "Cancel" button in modal
+    document.getElementById('cancel').addEventListener('click', function() {
+      // Hide the modal
+      document.getElementById('forgotPasswordModal').style.display = 'none';
+      document.getElementById('forgotPasswordForm').reset(); // Reset the form
+      clearForm()
+    });
+
+    // Event listener for "Sign Out" button
+    document.getElementById('signout').addEventListener('click', function() {
+      document.getElementById('container1').style.display = 'block';
+      document.getElementById('surveyForm').style.display = 'none';
+    });
+
+    // Event listener for survey form submission
+   
+  </script>
+  
+  
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzViqWJP8oFtNulC3cgVMhkhvYyYDI7pQVtjU-vNZOikF-cT9FQROzNNLIA79uNLt85ug/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          msg.innerHTML = "Message sent Succesfully" 
+          setTimeout(function(){
+          msg.innerHTML = ""
+        },5000 ) 
+        form.reset()
+      })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+</body>
+</html>
