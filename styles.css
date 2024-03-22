@@ -6,6 +6,13 @@
     justify-content: space-around;
     align-items: center; /* Vertically center the content */
   }
+  #container2 {
+    width: 100%;
+    height: 100vh; /* Adjust the height as needed */
+    display: flex;
+    justify-content: space-around;
+    align-items: center; /* Vertically center the content */
+  }
   
 
   
@@ -179,16 +186,8 @@
   background-image: url('/images/background2.png');
   background-size: cover;
   background-position: center;
-  animation: fadeInBackground 1s ease-in-out; /* Apply fade-in animation */
 }
-@keyframes fadeInBackground {
-  from {
-      opacity: 0; /* Start with opacity 0 */
-  }
-  to {
-      opacity: 1; /* Fade in to full opacity */
-  }
-}
+
 /* Style for the survey form container */
 #surveyForm {
   display: none; /* Initially hidden */
@@ -224,11 +223,11 @@
 
 .Sf_Continer {
   padding: 10px;
-  min-width: 450px; /* Set the minimum width to 450px */
-  width: 6vm; /* Keep the original width value */
+  width: 100%;
+  min-width: 350px; /* Set the minimum width to 450px */
+  /* Keep the original width value */
 }
 .UD {
-  padding-top: -5px;
   font-size: 35px;
   color: #ffffff;
   font-weight: bold;
@@ -238,7 +237,8 @@
 }
 
 .AN {
-  padding-top: 5px;
+  padding-top: 20px;
+  padding-bottom: -10px;
   font-size: 25px;
   color: #ffffff;
   font-weight: bold;
@@ -262,10 +262,12 @@
 .surveyDetailsForm {
   background-color: #00000086;
   padding: 0px 40px;
+  width: 60%;
+  height: fit-content; /* Adjust width as needed */
   text-align: center;
-  margin: 20px; /* Adjust margin as needed */
+  margin: 20px auto; /* Adjust margin as needed */
   border-radius: 12px;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
 }
 
 /* Style for form labels */
@@ -280,7 +282,7 @@
 .surveyDetailsForm textarea {
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -290,6 +292,7 @@
 
 /* Style for the submit button */
 .surveyDetailsForm button[type="submit"] {
+  margin-bottom:15px;
   padding: 10px 20px;
   background-color: #79fe68;
   color: rgb(0, 0, 0);
@@ -301,6 +304,7 @@
 
 /* Style for the sign-out button */
 #signout {
+  margin-bottom:15px;
   padding: 10px 20px;
   background-color: #b93333;
   color: white;
@@ -317,7 +321,7 @@
 /* Style for the survey form input fields */
 #surveyDetailsForm input[type="text"]::placeholder,
 #surveyDetailsForm textarea::placeholder {
-    color:  rgb(192, 191, 191); /* Set placeholder color to white */
+    color:  rgb(227 227 227); /* Set placeholder color to white */
 }
 
 
@@ -400,10 +404,11 @@
 
 }
 #msg {
+  margin:10px 20px;
   color: #4CAF50;
-  font-size: 13px;
+  font-size: 20px;
+  background-color:white;
   position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
